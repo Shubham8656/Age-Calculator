@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const AgeCalculator = () => {
-    const [age, setAge] = useState({ year: 0, month: 0, day: 0,hours:0,minutes:0,seconds:0 })
+    const [age, setAge] = useState({ year: 0, month: 0, day: 0, hours: 0, minutes: 0, seconds: 0, show: false })
     const calculateAge = (e) => {
         const CurrentDate = new Date();
         const BirthDate = new Date(e.target.value);
@@ -16,33 +16,36 @@ const AgeCalculator = () => {
         console.log(CurrentMonth)
 
         if (CurrentMonth >= BirthMonth && CurrentDay >= BirthDay) {
-            setAge({ ...age, year: CurrentYear - BirthYear,month:CurrentMonth-BirthMonth,day:CurrentDay-BirthDay})
+            setAge({ ...age, year: CurrentYear - BirthYear, month: CurrentMonth - BirthMonth, day: CurrentDay - BirthDay, show: true })
 
         }
         else {
-            setAge({ ...age, year: CurrentYear - BirthYear - 1, month: 12 - (BirthMonth - CurrentMonth),day:CurrentDay})
+            setAge({ ...age, year: CurrentYear - BirthYear - 1, month: 12 - (BirthMonth - CurrentMonth), day: CurrentDay, show: true })
         }
 
     }
+    let ageJSX = <>
+        <h1 class="header" style={{ textAlign: 'center', color: 'black' }}>
+            {age.year}{' years '}{age.month}{' months '}{age.day}{' day '}
+        </h1>
+        <h2 class="header" style={{ textAlign: 'center', color: 'grey' }}>
+            {'= '}{age.day * 24 + age.month * 30 * 24 + age.year * 12 * 30 * 24}{' hours'}
+        </h2>
+        <h3 class="header" style={{ textAlign: 'center', color: 'grey' }}>
+            {'= '}{(age.day * 24 + age.month * 30 * 24 + age.year * 12 * 30 * 24) * 60}{' minutes'}
+        </h3>
+    </>
 
     return (
-        <div className="ui container" style={{ display: 'flex', flexDirection: 'column',backgroundColor:"" }}>
-            <div class="ui label" style={{fontSize:'120%'}}>
+        <div className="ui container" style={{ display: 'flex', flexDirection: 'column', backgroundColor: "" }}>
+            <div class="ui label" style={{ fontSize: '120%' }}>
                 Date of Birth <i class="calendar alternate icon"></i>
             </div>
             <br />
-            <div class="ui input" style={{fontSize:'120%'}}>
+            <div class="ui input" style={{ fontSize: '120%' }}>
                 <input type="date" onChange={calculateAge} />
             </div>
-            <h1 class="header" style={{ textAlign: 'center',color:'black' }}>
-                {age.year}{' years '}{age.month}{' months '}{age.day}{' day '}
-            </h1>
-            <h2 class="header" style={{ textAlign: 'center',color:'grey' }}>
-                {'= '}{age.day*24 + age.month*30*24 + age.year*12*30*24}{' hours'}
-            </h2>
-            <h3 class="header" style={{ textAlign: 'center',color:'grey' }}>
-                {'= '}{(age.day*24 + age.month*30*24 + age.year*12*30*24)*60}{' minutes'}
-            </h3>
+            {age.show && ageJSX}
         </div>
     )
 }
