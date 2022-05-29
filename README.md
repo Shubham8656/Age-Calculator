@@ -1,3 +1,3 @@
-Contact Manager
+Age Calculator
 
-Live Demo : - https://contact-manager-shubham.netlify.app/
+Live Demo : - https://age-calculator-shubham.netlify.app/
