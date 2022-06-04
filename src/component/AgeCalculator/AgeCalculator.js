@@ -15,10 +15,7 @@ const AgeCalculator = () => {
         const BirthDay = BirthDate.getDate()
         console.log(CurrentMonth)
 
-        if (!BirthYear || !BirthMonth || !BirthDay) {
-            alert('Please enter full date')
-            return
-        }
+        
         if (CurrentMonth > BirthMonth) {
             setAge({ ...age, year: CurrentYear - BirthYear, month: CurrentMonth - BirthMonth, day: Math.abs(CurrentDay - BirthDay), show: true })
         }
