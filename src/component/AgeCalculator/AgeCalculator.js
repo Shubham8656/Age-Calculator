@@ -15,12 +15,21 @@ const AgeCalculator = () => {
         const BirthDay = BirthDate.getDate()
         console.log(CurrentMonth)
 
-        if (CurrentMonth >= BirthMonth && CurrentDay >= BirthDay) {
-            setAge({ ...age, year: CurrentYear - BirthYear, month: CurrentMonth - BirthMonth, day: CurrentDay - BirthDay, show: true })
-
+        if (!BirthYear || !BirthMonth || !BirthDay) {
+            alert('Please enter full date')
+            return
         }
-        else {
-            setAge({ ...age, year: CurrentYear - BirthYear - 1, month: 12 - (BirthMonth - CurrentMonth), day: CurrentDay, show: true })
+        if (CurrentMonth > BirthMonth) {
+            setAge({ ...age, year: CurrentYear - BirthYear, month: CurrentMonth - BirthMonth, day: Math.abs(CurrentDay - BirthDay), show: true })
+        }
+        else if(CurrentMonth < BirthMonth) {
+            setAge({ ...age, year: CurrentYear - BirthYear - 1, month: 12 - (BirthMonth - CurrentMonth), day:Math.abs(CurrentDay - BirthDay), show: true })
+        }
+        else if(CurrentMonth === BirthMonth && CurrentDay > BirthDay){
+            setAge({ ...age, year: CurrentYear - BirthYear , month: CurrentMonth - BirthMonth, day: Math.abs(CurrentDay - BirthDay), show: true })
+        }
+        else if(CurrentMonth === BirthMonth && CurrentDay < BirthDay){
+            setAge({ ...age, year: CurrentYear - BirthYear - 1, month: 12 - (BirthMonth - CurrentMonth)-1, day: Math.abs(30 - BirthDay), show: true }) 
         }
 
     }
